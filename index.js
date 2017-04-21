@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-
-const TOKEN = "MzAzMjQzMzEyNjQxNDc0NTcx.C9kiaA.q4k8w0Cqg6bPEzUTeHWjalQpikA";
+const yt = require('ytdl-core');
+const settings = require("./settings.json");
 const PREFIX = "&";
 
 function generateHex() {
@@ -50,7 +50,7 @@ var args = message.content.split(/[ ]+/);
     }
 
     if(message.content.startsWith("&say")) {
-        let newArgs = args.splice(0, 1);
+        let newArgs = args.splice(0, 1)
         message.channel.sendMessage(args.join(' '));
     }
 
@@ -59,7 +59,6 @@ var args = message.content.split(/[ ]+/);
         let count = args[1];
          message.channel.fetchMessages({limit: count})
          .then(messages => message.channel.bulkDelete(messages));
-         return message.reply(`${count} messages successfully deleted!`);
     }
 
     if (message.content.startsWith("&8ball")) {
@@ -163,6 +162,9 @@ var args = message.content.split(/[ ]+/);
 
     }
 
+    if (message.content.startsWith('&smd')) {
+message.channel.sendMessage("8========================>");
+}
 var args = message.content.substring(PREFIX.length).split(" ")
 
 
@@ -226,7 +228,7 @@ bot.user.setGame(args.join(' '));
         message.guild.unban(id)
         message.channel.sendMessage("User has been unbanned!")
         var embed = new Discord.RichEmbed()
-        .addField(`User:`, `${message.mentions.users.first(id)}`)
+        .addField(`User:`, `${message.mentions.users.first()}`)
         .addField(`Action:`, "Unban")
         .addField(`Moderator:`, `${message.author.username}#${message.author.discriminator}`)
         .setColor('#33ccff')
@@ -245,7 +247,7 @@ bot.user.setGame(args.join(' '));
         case "ban":
     if (message.member.hasPermission("BAN_MEMBERS")) {
         message.guild.members.get(message.mentions.users.firstKey()).ban();
-        message.channel.sendMessage("User has been banned!")
+        message.channel.sendMessage(`User has been banned! ${message.mentions.users.first().id} is the id (to unban , just do &unban (that ID right there)`  )
                 var embed = new Discord.RichEmbed()
         .addField(`User:`, `${message.mentions.users.first().username}`)
         .addField(`Action:`, "Ban")
@@ -269,10 +271,10 @@ bot.user.setGame(args.join(' '));
         break;
         case "s-mute":
     if (message.member.hasPermission("MUTE_MEMBERS")) {
-        message.guild.members.get(message.mentions.users.first()).setMute(true);
+        message.guild.members.get(message.mentions.users.firstKey()).setMute(true);
         message.channel.sendMessage("User has been server-muted!")
                         var embed = new Discord.RichEmbed()
-        .addField(`User:`, `${message.mentions.users.first()}`)
+        .addField(`User:`, `${message.mentions.users.first().username}`)
         .addField(`Action:`, "Server-mute")
         .addField(`Moderator:`, `${message.author.username}#${message.author.discriminator}`)
         .setColor('#33ccff')
@@ -284,10 +286,10 @@ bot.user.setGame(args.join(' '));
         break;
         case "s-unmute":
     if (message.member.hasPermission("MUTE_MEMBERS")) {
-        message.guild.members.get(message.mentions.users.first()).setMute(false);
+        message.guild.members.get(message.mentions.users.firstKey()).setMute(false);
         message.channel.sendMessage("User has been taken off server-mute!")
         var embed = new Discord.RichEmbed()
-        .addField(`User:`, `${message.mentions.users.first()}`)
+        .addField(`User:`, `${message.mentions.users.first().username}`)
         .addField(`Action:`, "Server-unmute")
         .addField(`Moderator:`, `${message.author.username}#${message.author.discriminator}`)
         .setColor('#33ccff')
@@ -299,10 +301,10 @@ bot.user.setGame(args.join(' '));
         break;
         case "s-deafen":
     if (message.member.hasPermission("DEAFEN_MEMBERS")) {
-        message.guild.members.get(message.mentions.users.first()).setDeaf(true);
+        message.guild.members.get(message.mentions.users.firstKey()).setDeaf(true);
         message.channel.sendMessage("User has been server-deafened!")
         var embed = new Discord.RichEmbed()
-        .addField(`User:`, `${message.mentions.users.first()}`)
+        .addField(`User:`, `${message.mentions.users.first().username}`)
         .addField(`Action:`, "Server-deafen")
         .addField(`Moderator:`, `${message.author.username}#${message.author.discriminator}`)
         .setColor('#33ccff')
@@ -317,7 +319,7 @@ bot.user.setGame(args.join(' '));
         message.guild.members.get(message.mentions.users.first()).setDeaf(false);
         message.channel.sendMessage("User has been taken off server-deafen!")
         var embed = new Discord.RichEmbed()
-        .addField(`User:`, `${message.mentions.users.first()}`)
+        .addField(`User:`, `${message.mentions.users.first().username}`)
         .addField(`Action:`, "Server-undeafen")
         .addField(`Moderator:`, `${message.author.username}#${message.author.discriminator}`)
         .setColor('#33ccff')
@@ -371,6 +373,8 @@ case "help":
 .addField("Server Deafen someone from VC:", "`&s-deafen`", true)
 .addField("Server Undeafen someone from VC:", "`&s-undeafen`", true)
 .addField("Change someone's nickname:", "`&set-nick`", true)
+.addField("Lenny:", "`&lenny`", true)
+.addField("Shrug:", "`&shrug`", true)
 .setColor('#cc0000')
 .setFooter(bot.user.username, bot.user.avatarURL)
 message.guild.member(message.author.id).sendEmbed(embed);  
@@ -380,4 +384,4 @@ message.channel.sendMessage("Commands sent to your PMs!")
 
    }
 });
-bot.login(TOKEN);
+bot.login(settings.token);
