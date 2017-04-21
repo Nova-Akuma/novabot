@@ -107,6 +107,7 @@ bot.on("message", message => {
         message.channel.sendEmbed(new Discord.RichEmbed()
                 .addField("Bot Owner", "Andrea", true)
                 .addField("Bot Creator", "Nova/Akuma", true)
+                .addField("Special thanks to:", "Heating Device#1212", true)
                 .addField("Bot Created On", "16/04/17", true)
                 .setColor(0x00FFFF)
                 .setFooter("( ͡° ͜ʖ ͡°)")
