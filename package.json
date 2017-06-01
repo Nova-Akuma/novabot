@@ -1,12 +1,12 @@
 {
-  "name": "andrea",
+  "name": "fuck",
   "version": "1.0.0",
   "description": "Suh",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Akuma",
+  "author": "off",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.0.0",
